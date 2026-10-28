@@ -10,7 +10,7 @@ What it does in Claude Code:
 
 - `/spokeslad:brief` reads your repo and writes one messaging file: audience, what you
   want people to repeat, proof, approved claims, never-say list.
-- `/spokeslad:listen` collects mentions from HN, Reddit and GitHub and gives you a
+- `/spokeslad:listen` collects mentions from HN and GitHub (Reddit optional) and gives you a
   one-screen digest.
 - `/spokeslad:plan` and `/spokeslad:launch` size the news and draft the posts, FAQ,
   tough questions, demo script and holding statements.
@@ -19,7 +19,8 @@ What it does in Claude Code:
 
 It never posts for you. You publish.
 
-How Claude is used: the skills and a reviewer subagent do the judgment; a small Python
+How it was built: with Claude Code, over a few sessions. How Claude is used in it:
+the skills and a reviewer subagent do the judgment; a small Python
 helper does the counting and rule checks. The first test was its own launch, and those
 files are in the repo, including the red-team report.
 

@@ -31,7 +31,9 @@ Use these file names so the linter applies the right platform rules:
 - `show-hn.md`: first line is the title, starting `Show HN:`, under 80 characters,
   no hype. The body is a short, personal note from the maker: what it is, why you
   built it, what is rough, what feedback you want. HN readers respect candor about
-  limitations.
+  limitations. HN reportedly asks that comments not be AI-generated or AI-edited
+  (reported March 2026; check the current guidelines): label HN drafts as notes the
+  user rewrites in their own words, and never draft HN comment replies as paste-ready text.
 - `x-thread.md`: posts separated by lines containing only `---`, each under 280
   characters. First post stands on its own; the link goes in the first or last post.
 - `linkedin.md`: under 3000 characters, first two lines carry the point.

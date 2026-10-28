@@ -41,7 +41,7 @@ including the red-team report.
 | Show HN | show-hn.md | you post | draft |
 | X / Bluesky thread | x-thread.md | you post | draft |
 | r/ClaudeAI showcase megathread comment | reddit-ClaudeAI.md | you post | draft |
-| Creator and newsletter pitches (6 to 8) | pitch-list.md, pitches.md | you send | draft |
+| Creator and newsletter pitches (6 to 8; 2 drafted, more needed) | pitch-list.md, pitches.md | you send | draft |
 | Directory submissions (claudemarketplaces.com/submit and similar) | checklist.md | you | to do |
 | FAQ and tough questions | faq.md, tough-questions.md | Spokeslad | draft |
 | Demo script | demo-script.md | you record | draft |
@@ -52,15 +52,15 @@ including the red-team report.
 
 | When | Date | Step |
 |---|---|---|
-| T-20 | Wed 2026-10-28 | Brief, baseline, drafts, red team (done in the build session) |
-| T-14 | Tue 2026-11-03 | You review drafts. Ask 3 developers to try it on a real project. Pitches out with early access. |
+| T-20 | Wed 2026-10-28 | Brief, baseline, drafts, red team and fixes (done in the build session; see redteam.md) |
+| T-14 | Tue 2026-11-03 | You review drafts. Ask 3 developers to try it on a real project. Add 3 to 4 developer-first outlets, then send pitches (offer a walkthrough; the repo is already public). |
 | T-7 | Tue 2026-11-10 | Record demo. Fold early-user feedback into README and drafts. Re-run red team. |
 | T-5 | Thu 2026-11-12 | Final approval of all drafts. Submit to plugin directories. |
 | T-1 | Mon 2026-11-16 | Fresh-machine install test. Check every link. Re-run `/spokeslad:listen` for clashes. |
-| T | Tue 2026-11-17 | Show HN first, then thread, then Reddit megathread. Stay in the HN thread for 3+ hours. |
+| T | Tue 2026-11-17 | Show HN first (text rewritten in your own words), then thread, then Reddit megathread. Stay in the HN thread for 3+ hours, answering in your own words. |
 | T+1 to T+7 | | Answer everything. Fix what people report, fast and publicly. Log coverage. |
-| T+7 | Tue 2026-11-24 | `/spokeslad:measure` against targets. |
-| T+30 | Thu 2026-12-17 | Measure again, including the AI-answer probe. |
+| T+7 | Tue 2026-11-24 | `/spokeslad:measure` against targets. Post the numbers publicly (README or a short follow-up), good or bad. |
+| T+30 | Thu 2026-12-17 | Measure again, including the AI-answer probe, and publish the numbers. |
 
 ## Targets
 
@@ -71,7 +71,8 @@ recalibrate after T+7, not forecasts.
 2. 10 or more earned mentions (by others, not us) within 14 days.
 3. 3 or more creator or newsletter mentions from 6 to 8 pitches.
 4. 25 or more GitHub stars from people we don't know by T+14 (guess).
-5. Spokeslad named in at least 1 of the 6 buyer questions by T+30 (baseline 0 of 6).
+5. Spokeslad named in at least 1 of the 6 buyer questions by T+30 (baseline 0 of 6,
+   web search, in ai-answers/2026-10-28/).
 
 ## Risks
 
@@ -80,6 +81,8 @@ recalibrate after T+7, not forecasts.
 - **Comparison with Newsjack.** Answer factually and generously; never knock them.
 - **Install breaks on launch day.** Mitigation: fresh-machine test at T-1, holding
   statement ready.
+- **HN rule on AI-written comments** (reported March 2026). Mitigation: rewrite the
+  Show HN text and all replies in your own words; drafts are notes.
 - **Reddit removal.** Use the showcase megathread unless you have 50+ karma; read
   Rule 7 first.
 - **The name.** "Lad" may read as bro-ish to some; the voice stays dry and

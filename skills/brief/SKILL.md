@@ -16,8 +16,9 @@ Run `"${CLAUDE_PLUGIN_ROOT}/bin/spokeslad" init` from the project root. It creat
 never overwrites existing files. If a brief already exists, read it and update it
 instead of starting over.
 
-Suggest adding `.spokeslad/signals/` and `.spokeslad/ai-answers/` to `.gitignore`.
-The messaging house, plans and drafts are worth committing.
+Suggest adding `.spokeslad/signals/` to `.gitignore` (raw data, can be large). The
+messaging house, plans, drafts, AI-answer baselines and red-team reports are worth
+committing: they are your evidence.
 
 ## 2. Do the homework before asking anything
 

@@ -35,7 +35,7 @@ by a line containing only `---`. Each pitch:
 - Under 150 words. Subject line under 60 characters.
 - Opens with why them: a specific reference to their piece, in one sentence.
 - One sentence on what it is, one on why their audience would care now.
-- One concrete offer: early access, an exclusive first look, a demo, the maker for an
+- One concrete offer (early access or an exclusive only if access is genuinely limited): a demo, a first look, the maker for an
   interview, data they can use.
 - One clear, easy ask, and an easy no.
 - No attachments, no hype, no "hope you're well", no pretend familiarity.

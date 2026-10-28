@@ -1,0 +1,5 @@
+{
+  "question": "What tools monitor mentions of my developer tool on Hacker News and Reddit?",
+  "answer": "Results: Apify mentions-monitor actor, agentpatch blog guides, hn-developer-sentiment MCP server, PageCrawl alerts, a developer-listening Claude Code skill. None of the tracked plugins surfaced.",
+  "source": "web-search top results, 2026-10-28"
+}

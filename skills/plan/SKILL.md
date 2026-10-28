@@ -59,7 +59,7 @@ Check each community's current self-promotion rules before planning a post there
 
 For tier 1 and 2, lay out dated steps relative to launch day (T):
 
-- T-14 to T-7: brief, pitch list, pitches out with an embargo or early access offer.
+- T-14 to T-7: brief, pitch list, pitches out (offer an embargo or early access only if the product is not yet public).
 - T-5: drafts done, red-team pass, user approves.
 - T-1: final check of links, demo, install path; holding statements ready.
 - T: publish in a planned order, be present in comments for the first hours.

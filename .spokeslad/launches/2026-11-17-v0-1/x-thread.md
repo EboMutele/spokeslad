@@ -14,9 +14,9 @@ Every other command checks against that file.
 ---
 Every draft gets checked twice before you see it:
 
-1. A linter that fails hype, numbers with no source and platform-rule breaks
-2. A separate reviewer agent that only sees the drafts and your proof, and writes the first critical reply
+1. A linter that fails hype, unsourced claims and platform-rule breaks
+2. A reviewer agent that never sees the conversation that wrote the drafts, and writes the first critical reply
 ---
-Its first test was its own launch. The brief, competitor scan, plan, drafts and red-team report are all in the repo.
+Its first test was its own launch. The brief, competitor scan, plan, drafts and the red-team report that caught my mistakes are all in the repo.
 
 It's v0.1. Feedback welcome, especially blunt feedback.

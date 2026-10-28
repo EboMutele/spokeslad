@@ -1,4 +1,4 @@
-# Spokeslad 0.1: a launch and comms team for people who'd rather be coding
+# Spokeslad 0.1: launch and comms prep for people who'd rather be coding
 
 I build things, and like most developers I'm bad at telling anyone about them. The
 launches I've seen go well weren't louder. They were prepared: clear about who the
@@ -27,15 +27,15 @@ never say. Every other command checks against that file.
 - `/spokeslad:crisis` triages an outage or a backlash thread and drafts a holding
   statement and a response plan.
 - `/spokeslad:measure` tracks share of voice, which of your messages people repeat,
-  and how often AI assistants mention you when asked buyer questions.
+  and how often Claude, and a web search, name you for questions a buyer would ask.
 
 ## The part I care about most
 
 Every draft gets checked twice before you see it. First by `spokeslad lint`, a small
-script that fails drafts with hype ("revolutionary", "the only"), numbers with no
-source, phrases on your never-say list, leftover placeholders, Show HN titles that
+script that fails drafts with hype ("revolutionary", "the only"), unsourced
+percentages, money and user counts, phrases on your never-say list, leftover placeholders, Show HN titles that
 break the format, X posts over the limit, and Reddit posts that don't say you made the
-thing. Then by a separate reviewer agent that never saw how the draft was written. It
+thing. Then by a separate reviewer agent that never sees the conversation that wrote the draft. It
 checks each claim against your proof and writes the first critical reply the toughest
 reader in each channel would post.
 
@@ -45,16 +45,17 @@ schemes. You publish under your own name.
 ## Proof: it launched itself
 
 Spokeslad's first test was preparing this launch. Everything is in the repo under
-`.spokeslad/`: the messaging file, the competitor scan (which found that other PR
+`.spokeslad/`: the messaging file, the competitor scan (which found that other public-relations
 plugins exist, so you won't see "first" or "only" here), the tier score (tier 2, with
 what it would take to earn tier 1), these drafts, and the red-team report with what it
-changed.
+changed. It caught real problems, including claims about the linter that the code
+didn't back up at the time.
 
 ## Honest limits
 
 - It's version 0.1 and has no users yet besides me.
-- The listening script uses public endpoints that can rate-limit; Reddit is the
-  flakiest.
+- Listening uses public endpoints that rate-limit. It waits between requests, and
+  Reddit is off unless you turn it on (web search covers it otherwise).
 - Sentiment tagging is a keyword heuristic for triage. Claude reads the actual posts.
 - In developer search, "PR" means pull request. I know.
 

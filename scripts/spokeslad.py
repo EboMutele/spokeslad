@@ -24,6 +24,7 @@ import os
 import re
 import shutil
 import sys
+import time
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -60,6 +61,7 @@ def _http_post_json(url: str, payload: dict, headers: dict, timeout: int = 90) -
 
 HTTP_GET = _http_get
 HTTP_POST_JSON = _http_post_json
+SLEEP = time.sleep
 
 
 # --------------------------------------------------------------------------
@@ -389,7 +391,10 @@ def cmd_listen(args) -> int:
     (ws / "signals").mkdir(parents=True, exist_ok=True)
     now = dt.datetime.now(dt.timezone.utc)
     since = now - dt.timedelta(days=args.days)
-    src = {"hackernews": True, "reddit": True, "github": True, **cfg.get("sources", {})}
+    # Reddit is opt-in: its unauthenticated search endpoint is rate-limited and its
+    # API terms favour OAuth clients. Without it, /spokeslad:listen covers Reddit
+    # through web search.
+    src = {"hackernews": True, "reddit": False, "github": True, **cfg.get("sources", {})}
     if args.only:
         wanted = set(args.only.split(","))
         src = {k: (k in wanted) for k in src}
@@ -397,10 +402,21 @@ def cmd_listen(args) -> int:
     raw, errors = [], []
 
     def attempt(label, fn, *a):
-        try:
-            raw.extend(fn(*a))
-        except (urllib.error.URLError, OSError, ValueError, ET.ParseError) as exc:
-            errors.append(f"{label}: {exc}")
+        for tries in (1, 2):
+            try:
+                raw.extend(fn(*a))
+                break
+            except urllib.error.HTTPError as exc:
+                if exc.code == 429 and tries == 1:  # rate limited: wait once, then retry
+                    wait = exc.headers.get("Retry-After", "") if exc.headers else ""
+                    SLEEP(min(int(wait) if wait.isdigit() else 10, 60))
+                    continue
+                errors.append(f"{label}: {exc}")
+                break
+            except (urllib.error.URLError, OSError, ValueError, ET.ParseError) as exc:
+                errors.append(f"{label}: {exc}")
+                break
+        SLEEP(args.delay)
 
     for term in search_terms(cfg):
         if src.get("hackernews"):
@@ -741,11 +757,21 @@ SLOP_WARNINGS = [
     r"\beffortless(ly)?\b", r"\bnext[- ]level\b", r"\bempower(s|ing)?\b",
     r"\b(a|the) testament to\b", r"\btake (it|your \w+) to the next level\b",
 ]
-PLACEHOLDERS = [r"\bTODO\b", r"\bTBD\b", r"\bFIXME\b", r"\bXXX\b", r"\[(link|url|LINK|URL)\]",
-                r"\{\{[^}]*\}\}", r"lorem ipsum", r"\[insert[^\]]*\]", r"<placeholder>"]
-NUM_ERROR = re.compile(r"\b\d[\d,.]*\s?(%|percent\b|x\b)", re.IGNORECASE)
-NUM_WARN = re.compile(r"\b\d[\d,.]*\s?(k|m)?\+?\s(users|customers|companies|teams|developers|"
-                      r"downloads|installs|stars|signups|sign-ups|hours|minutes)\b", re.IGNORECASE)
+PLACEHOLDERS = [r"\bTODO\b", r"\bTBD\b", r"\bFIXME\b", r"\bXXX\b",
+                r"\{\{[^}]*\}\}", r"lorem ipsum", r"<placeholder>",
+                # any [bracketed note] that is not a markdown link, checkbox,
+                # footnote or [source: ...] marker, e.g. "[step]", "[link to docs]"
+                r"(?<!\])\[(?!source:)(?![ xX]\])(?!\^)[^\]\n]{1,60}\](?![(\[:])"]
+NUM_ERRORS = [
+    re.compile(r"\b\d[\d,.]*\s?(%|percent\b|x\b)", re.IGNORECASE),           # 40%, 3x
+    re.compile(r"[$€£]\s?\d[\d,.]*\s?(k|m|bn|b|million|billion)?\b", re.IGNORECASE),  # $5M
+    re.compile(r"\b\d[\d,.]*\s?(k|m)?\+?\s(users|customers|companies|teams|developers|"
+               r"downloads|installs|stars|signups|sign-ups|subscribers|readers|businesses)\b",
+               re.IGNORECASE),                                                  # 500 teams
+    re.compile(r"\bfortune\s?(50|100|500)\b", re.IGNORECASE),
+]
+NUM_WARN = re.compile(r"\b\d[\d,.]*\s(seconds|minutes|hours|days|weeks|months)\b",
+                      re.IGNORECASE)                                            # time claims
 URL_RE = re.compile(r"https?://\S+")
 IGNORE = "spokeslad-ignore"
 SOURCE_MARK = re.compile(r"\[source:[^\]]+\]", re.IGNORECASE)
@@ -823,15 +849,16 @@ def lint_text(name: str, text: str, cfg: dict) -> list[dict]:
             if phrase.lower() in line.lower():
                 add(i, "error", "never-say", f"'{phrase}' is on the never-say list in config.json.")
         if not sourced:
-            m = NUM_ERROR.search(URL_RE.sub("", claimed))
+            bare = URL_RE.sub("", claimed)
+            m = next((mm for mm in (r.search(bare) for r in NUM_ERRORS) if mm), None)
             if m:
                 add(i, "error", "unsourced-number", f"'{m.group(0).strip()}' needs a source: "
                     "add it to approved_claims or mark the line with [source: url].")
             else:
-                m = NUM_WARN.search(URL_RE.sub("", claimed))
+                m = NUM_WARN.search(bare)
                 if m:
-                    add(i, "warning", "unsourced-number", f"'{m.group(0).strip()}': check this "
-                        "number is current and add [source: url].")
+                    add(i, "warning", "unsourced-number", f"'{m.group(0).strip()}': if this is "
+                        "a claim about speed or savings, add [source: url].")
 
     low = name.lower()
     base = Path(low).name
@@ -917,6 +944,8 @@ def build_parser() -> argparse.ArgumentParser:
     pl = sub.add_parser("listen", help="collect new mentions")
     pl.add_argument("--days", type=int, default=2, help="look-back window (default 2)")
     pl.add_argument("--only", help="comma-separated sources: hackernews,reddit,github")
+    pl.add_argument("--delay", type=float, default=1.0,
+                    help="seconds to wait between requests (default 1.0)")
     pl.add_argument("--json", action="store_true")
     pl.set_defaults(fn=cmd_listen)
 

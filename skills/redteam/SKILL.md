@@ -15,7 +15,8 @@ errors before step 2; there is no point paying for judgment on mechanical proble
 
 ## 2. Independent reviewer
 
-Use the `spokeslad:redteam` agent. Give it only: the paths of the drafts, the path of
+Use the `spokeslad:redteam` agent. Give it only (it can technically read the disk, so
+this is an instruction, not isolation): the paths of the drafts, the path of
 `.spokeslad/messaging.md`, and the plan if there is one. Do not give it your
 reasoning, the conversation, or what you hoped the drafts would achieve. A reviewer
 who knows the intent reads what was meant instead of what was written.

@@ -43,17 +43,18 @@ checked by code, and it **never publishes anything for you**.
 ### Pillar 1: Proof or it doesn't ship
 
 - Message: every draft is checked against your approved claims, by code and by a
-  separate reviewer agent, before you see it.
+  separate reviewer agent that never sees the conversation that wrote it, before you
+  see it. The code fails hype and unsourced percentages, money and user counts.
 - Proof: `spokeslad lint` rules for hype, unsourced numbers, never-say phrases and
   placeholders (scripts/spokeslad.py); the independent red-team agent
   (agents/redteam.md); the test suite (tests/test_spokeslad.py).
 
 ### Pillar 2: Built for where developers talk
 
-- Message: it listens on Hacker News, Reddit, GitHub and competitor release feeds,
-  and checks drafts against those platforms' rules.
-- Proof: `spokeslad listen` sources (HN Algolia API, Reddit search, GitHub issues and
-  releases, RSS/Atom); lint rules for Show HN titles, X length with URLs counted as 23
+- Message: it watches Hacker News, Reddit, GitHub and competitor release feeds, and
+  checks drafts against those platforms' rules.
+- Proof: `spokeslad listen` sources (HN Algolia API, GitHub issues and releases,
+  RSS/Atom, optional Reddit search; web search in the listen skill); lint rules for Show HN titles, X length with URLs counted as 23
   characters, LinkedIn length and Reddit disclosure.
 
 ### Pillar 3: You stay the voice
@@ -72,12 +73,18 @@ how often AI assistants mention you, with numbers computed by code.
 |---|---|
 | never posts on your behalf | No posting code in the repo; README principles |
 | checks every draft against your approved claims | skills/redteam, agents/redteam.md, `spokeslad lint` |
-| listens on Hacker News, Reddit and GitHub | scripts/spokeslad.py listen |
+| watches Hacker News, Reddit and GitHub | scripts/spokeslad.py listen (HN, GitHub, optional Reddit); skills/listen web search |
 | standard library only | scripts/spokeslad.py imports |
 | MIT licensed | LICENSE |
 | free and open source | LICENSE, public repo |
 
 ## Do not claim (yet)
+
+- That the linter fails every unsourced number. It fails percentages, multipliers,
+  money and user counts, and only warns on time claims.
+- That the reviewer "only sees" certain files. It is instructed not to use the
+  conversation; it can technically read the disk.
+- Early access or exclusives. The repo is public.
 
 - "First" or "only" anything. Other PR plugins exist: Newsjack (elvisun/newsjack,
   journalist and newsjacking focus, about 1.7K stars per a listing verified
@@ -114,13 +121,13 @@ how often AI assistants mention you, with numbers computed by code.
   relations for software products: listening, planning, on-message drafts, review
   and measurement. You publish.
 - 50 words: Spokeslad is a free, open-source Claude Code plugin that gives developers
-  the communications workflow big companies use. It listens on Hacker News, Reddit and
+  the communications workflow big companies use. It watches Hacker News, Reddit and
   GitHub, sizes and plans launches, drafts every asset from one messaging source,
   checks each draft by code and by an independent reviewer, and measures results. It
   never posts for you.
 - 100 words: Spokeslad is a free, open-source Claude Code plugin for developers who
   ship products but have no comms team. You brief it once on what your product is,
-  who it's for and what you can prove. Every day it listens on Hacker News, Reddit,
+  who it's for and what you can prove. Every day it watches Hacker News, Reddit,
   GitHub and competitor release feeds and tells you what changed and what to do. When
   you ship, it sizes the news, plans the launch and drafts the announcement, Show HN
   post, threads, FAQ and creator pitches, then lints and red-teams them. It measures

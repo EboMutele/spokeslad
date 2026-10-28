@@ -1,14 +1,16 @@
 # Spokeslad
 
-**Your product's PR team, inside Claude Code.** Spokeslad listens to what people say
-about your product and your competitors, plans launches, writes everything
-on-message, handles crises and measures what works. Nothing goes out without your
+**A free Claude Code plugin that runs launches and public relations for software
+products: listening, planning, on-message drafts, review and measurement. You publish.**
+
+It follows the workflow big-company communications teams use: one agreed source of
+truth for what you say, daily listening, launches sized to the news, an independent
+review of every draft, and numbers instead of vibes. Nothing goes out without your
 approval: it drafts, you decide.
 
-It works the way communications teams at large companies work, minus the agency
-retainer: one agreed source of truth for what you say, daily monitoring, launches
-sized to the news, an independent red team on every draft, and numbers instead of
-vibes.
+Its first test was its own launch: see [`.spokeslad/`](.spokeslad/), including the
+[red-team report](.spokeslad/launches/2026-11-17-v0-1/redteam.md) that caught problems
+in its own claims.
 
 ## Install
 
@@ -84,13 +86,17 @@ spokeslad measure --probe-ai       # ask Claude your buyer questions first (ANTH
 spokeslad lint .spokeslad/launches/2026-11-04-v1   # check drafts; exits 1 on errors
 ```
 
-`lint` fails drafts on hype ("revolutionary", "the only", "10x faster"), numbers with
-no source, never-say phrases, leftover placeholders, Show HN titles that break HN's
+`lint` fails drafts on hype ("revolutionary", "the only", "10x faster"), unsourced
+percentages, money and user counts (and warns on unsourced time claims), bracketed
+placeholders, never-say phrases, leftover placeholders, Show HN titles that break HN's
 format, X posts over 280 characters (URLs counted as 23), LinkedIn posts over 3,000
 characters, and Reddit posts that do not say you made the thing. Mark a sourced line
 with `[source: https://...]`, or add the claim to `approved_claims`.
 
-Set `GITHUB_TOKEN` to raise GitHub API rate limits.
+Set `GITHUB_TOKEN` to raise GitHub API rate limits. `listen` waits a second between
+requests (`--delay`) and retries once on rate limits. Reddit's unauthenticated search
+is off by default; enable it with `"sources": {"reddit": true}` if you accept its
+terms, otherwise `/spokeslad:listen` covers Reddit through web search.
 
 ## Running it every day
 
@@ -106,7 +112,7 @@ T+7 and T+30 after each launch.
 - **Proof or it doesn't ship.** Claims trace back to the messaging house or the
   product itself.
 - **The work does not grade itself.** Drafts go through a reviewer agent that never
-  saw how they were written.
+  sees the conversation that wrote them.
 - **Measure, don't guess.** Numbers come from data collected and computed by code,
   with their caveats.
 

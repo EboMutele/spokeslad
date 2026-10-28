@@ -20,7 +20,7 @@
   "subreddits": [],
   "sources": {
     "hackernews": true,
-    "reddit": true,
+    "reddit": false,
     "github": true,
     "feeds": []
   },
@@ -28,7 +28,12 @@
     {
       "id": "m1",
       "message": "The first thing you want people to repeat about you.",
-      "keywords": ["words", "that", "signal", "it"]
+      "keywords": [
+        "words",
+        "that",
+        "signal",
+        "it"
+      ]
     }
   ],
   "approved_claims": [

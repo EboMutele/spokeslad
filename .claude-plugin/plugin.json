@@ -2,7 +2,7 @@
   "name": "spokeslad",
   "displayName": "Spokeslad",
   "version": "0.1.0",
-  "description": "Your product's PR team, inside Claude Code. Listens, plans launches, writes everything on-message, handles crises and measures what works. You approve before anything goes out.",
+  "description": "A free Claude Code plugin that runs launches and public relations for software products: listening, planning, on-message drafts, review and measurement. You publish.",
   "author": {
     "name": "EboMutele",
     "url": "https://github.com/EboMutele"

@@ -25,6 +25,7 @@ CONFIG = {
     ],
     "keywords": ["claude code marketing"],
     "subreddits": ["ClaudeAI"],
+    "sources": {"reddit": True},
     "key_messages": [
         {"id": "approval", "message": "You approve everything", "keywords": ["approve", "approval"]},
         {"id": "listen", "message": "It listens daily", "keywords": ["daily digest", "listens"]},
@@ -90,6 +91,7 @@ def fake_get(url, headers=None, timeout=20):
 @pytest.fixture
 def project(tmp_path, monkeypatch):
     monkeypatch.setattr(sl, "HTTP_GET", fake_get)
+    monkeypatch.setattr(sl, "SLEEP", lambda s: None)
     assert sl.main(["--dir", str(tmp_path), "init"]) == 0
     (tmp_path / ".spokeslad" / "config.json").write_text(json.dumps(CONFIG))
     return tmp_path
@@ -250,7 +252,7 @@ def test_lint_flags_hype_numbers_placeholders_and_never_say():
     assert "unsourced-number" in errs
     assert errs.count("placeholder") == 2
     assert "never-say" in errs
-    assert "unsourced-number" in rules(f, "warning")  # "500 developers"
+    assert errs.count("unsourced-number") == 2  # "3x faster" line and "500 developers"
 
 
 def test_lint_accepts_sources_and_approved_claims():
@@ -313,3 +315,44 @@ def test_lint_pitch_length_ignores_pitch_list():
     long = "word " * 300
     assert rules(sl.lint_text("pitch-list.md", long, CONFIG)) == []
     assert "pitch-length" in rules(sl.lint_text("pitches.md", long, CONFIG))
+
+
+def test_lint_fails_money_counts_and_fortune_claims():
+    for line in ["We raised $5M last month.", "Trusted by 10,000 developers.",
+                 "Used by Fortune 500 teams.", "Over 2k+ installs so far."]:
+        assert "unsourced-number" in rules(sl.lint_text("announcement.md", line, CONFIG), "error"), line
+    f = sl.lint_text("announcement.md", "Cuts prep from 3 weeks to 2 days.", CONFIG)
+    assert rules(f, "warning") == ["unsourced-number"] and rules(f, "error") == []
+
+
+def test_lint_flags_bracket_placeholders_but_not_links():
+    assert "placeholder" in rules(sl.lint_text("a.md", "Failing at [step] for some.", CONFIG))
+    assert "placeholder" in rules(sl.lint_text("a.md", "See [link to the docs].", CONFIG))
+    clean = ("See [the docs](https://x.y) and [ref][1].\n- [ ] todo box\n- [x] done\n"
+             "Grew 40% [source: https://x.y].\n")
+    assert rules(sl.lint_text("a.md", clean, CONFIG), "error") == []
+
+
+def test_listen_retries_once_on_429_and_throttles(project, monkeypatch):
+    calls, sleeps = {"n": 0}, []
+
+    def limited(url, headers=None, timeout=20):
+        if "hn.algolia.com" in url and calls["n"] == 0:
+            calls["n"] += 1
+            raise sl.urllib.error.HTTPError(url, 429, "Too Many", {"Retry-After": "3"}, None)
+        return fake_get(url, headers, timeout)
+    monkeypatch.setattr(sl, "HTTP_GET", limited)
+    monkeypatch.setattr(sl, "SLEEP", sleeps.append)
+    assert sl.main(["--dir", str(project), "listen", "--delay", "0.5"]) == 0
+    assert 3 in sleeps and 0.5 in sleeps
+    assert not signals_of(project)["errors"]
+
+
+def test_reddit_is_opt_in(project, monkeypatch):
+    cfg = dict(CONFIG)
+    cfg.pop("sources")
+    (project / ".spokeslad" / "config.json").write_text(json.dumps(cfg))
+    seen = []
+    monkeypatch.setattr(sl, "HTTP_GET", lambda u, h=None, t=20: (seen.append(u), fake_get(u, h, t))[1])
+    sl.main(["--dir", str(project), "listen"])
+    assert seen and not any("reddit.com" in u for u in seen)

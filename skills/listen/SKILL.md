@@ -11,7 +11,8 @@ Requires `.spokeslad/config.json`. If it is missing, run `/spokeslad:brief` firs
 ## 1. Collect
 
 Run `"${CLAUDE_PLUGIN_ROOT}/bin/spokeslad" listen --days N` from the project root,
-where N is the number of days the user asked for (default 2). It queries HN, Reddit, GitHub issues and competitor releases and feeds,
+where N is the number of days the user asked for (default 2). It queries HN, GitHub issues, competitor releases and feeds (and Reddit, if enabled
+in config; it is off by default), waits between requests,
 removes anything already seen, tags each signal (mention, competitor,
 competitor-release, category) with a rough sentiment, and saves
 `.spokeslad/signals/YYYY-MM-DD.json`.
