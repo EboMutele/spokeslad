@@ -16,9 +16,16 @@ Run `"${CLAUDE_PLUGIN_ROOT}/bin/spokeslad" init` from the project root. It creat
 never overwrites existing files. If a brief already exists, read it and update it
 instead of starting over.
 
-Suggest adding `.spokeslad/signals/` to `.gitignore` (raw data, can be large). The
-messaging house, plans, drafts, AI-answer baselines and red-team reports are worth
-committing: they are your evidence.
+Suggest adding `.spokeslad/signals/` to `.gitignore` (raw data, can be large).
+
+Then check whether the repo is public (for GitHub: `gh repo view --json visibility`).
+If it is public, tell the user plainly that anything committed under `.spokeslad/`
+is readable by anyone, including competitors and the people it mentions, and keep
+these out of it: `digests/`, `crisis/`, `log.md`, `pitch-list.md` and `pitches.md`
+(until sent), and any notes about named people. Offer two options: add those paths to
+`.gitignore`, or keep the whole workspace in a separate private repo. Messaging,
+plans, published drafts and red-team reports can stay public if the user wants them
+as evidence.
 
 ## 2. Do the homework before asking anything
 
