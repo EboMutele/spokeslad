@@ -41,7 +41,7 @@ including the red-team report.
 | Show HN | show-hn.md | you post | draft |
 | X / Bluesky thread | x-thread.md | you post | draft |
 | r/ClaudeAI showcase megathread comment | reddit-ClaudeAI.md | you post | draft |
-| Creator and newsletter pitches (6 to 8; 2 drafted, more needed) | pitch-list.md, pitches.md | you send | draft |
+| Creator and newsletter pitches (6 to 8; 2 drafted, more needed) | pitch-list.md, pitches.md (private repo) | you send | draft |
 | Directory submissions (claudemarketplaces.com/submit and similar) | checklist.md | you | to do |
 | FAQ and tough questions | faq.md, tough-questions.md | Spokeslad | draft |
 | Demo script | demo-script.md | you record | draft |
