@@ -1,0 +1,23 @@
+{
+  "name": "spokeslad",
+  "displayName": "Spokeslad",
+  "version": "0.1.0",
+  "description": "Your product's PR team, inside Claude Code. Listens, plans launches, writes everything on-message, handles crises and measures what works. You approve before anything goes out.",
+  "author": {
+    "name": "EboMutele",
+    "url": "https://github.com/EboMutele"
+  },
+  "homepage": "https://github.com/EboMutele/spokeslad",
+  "repository": "https://github.com/EboMutele/spokeslad",
+  "license": "MIT",
+  "keywords": [
+    "pr",
+    "public-relations",
+    "communications",
+    "launch",
+    "marketing",
+    "devrel",
+    "crisis-communications",
+    "share-of-voice"
+  ]
+}

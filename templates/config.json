@@ -1,0 +1,47 @@
+{
+  "product": {
+    "name": "YourProduct",
+    "aliases": [],
+    "repo": "owner/repo",
+    "website": "https://example.com",
+    "one_liner": "What it is, for whom, in one sentence."
+  },
+  "competitors": [
+    {
+      "name": "CompetitorA",
+      "aliases": [],
+      "repo": "owner/repo",
+      "feeds": []
+    }
+  ],
+  "keywords": [
+    "category phrase people search for"
+  ],
+  "subreddits": [],
+  "sources": {
+    "hackernews": true,
+    "reddit": true,
+    "github": true,
+    "feeds": []
+  },
+  "key_messages": [
+    {
+      "id": "m1",
+      "message": "The first thing you want people to repeat about you.",
+      "keywords": ["words", "that", "signal", "it"]
+    }
+  ],
+  "approved_claims": [
+    {
+      "claim": "A specific, provable statement",
+      "proof": "https://link-to-evidence"
+    }
+  ],
+  "never_say": [],
+  "ai_probe": {
+    "model": "claude-sonnet-5-5",
+    "questions": [
+      "What are the best tools for <the job your product does>?"
+    ]
+  }
+}

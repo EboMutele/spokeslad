@@ -1,0 +1,18 @@
+{
+  "name": "spokeslad",
+  "owner": {
+    "name": "EboMutele",
+    "url": "https://github.com/EboMutele"
+  },
+  "metadata": {
+    "description": "Spokeslad: a PR and communications team for software products, as a Claude Code plugin."
+  },
+  "plugins": [
+    {
+      "name": "spokeslad",
+      "source": "./",
+      "description": "Your product's PR team, inside Claude Code. Listens, plans launches, writes everything on-message, handles crises and measures what works. You approve before anything goes out.",
+      "category": "marketing"
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "product": {
+    "name": "Spokeslad",
+    "aliases": ["spokes lad", "spokeslad plugin"],
+    "repo": "EboMutele/spokeslad",
+    "website": "https://github.com/EboMutele/spokeslad",
+    "one_liner": "A free Claude Code plugin that runs launches and public relations for software products: listening, planning, on-message drafts, review and measurement. You publish."
+  },
+  "competitors": [
+    {"name": "Newsjack", "aliases": ["elvisun/newsjack"], "repo": "elvisun/newsjack", "feeds": []},
+    {"name": "marketingskills", "aliases": ["coreyhaines31/marketingskills", "Marketing Skills"], "repo": "coreyhaines31/marketingskills", "feeds": []},
+    {"name": "claude-gtm-plugin", "aliases": ["gtm-skills"], "repo": "manojbajaj95/claude-gtm-plugin", "feeds": []},
+    {"name": "Claude-PR-Media-Work-Plugin", "aliases": ["pr-media-work"], "repo": "danielrosehill/Claude-PR-Media-Work-Plugin", "feeds": []},
+    {"name": "opendirectory", "aliases": ["Varnan-Tech/opendirectory"], "repo": "Varnan-Tech/opendirectory", "feeds": []}
+  ],
+  "keywords": [
+    "Claude Code plugin launch",
+    "Show HN launch",
+    "launch my open source project",
+    "marketing for developers",
+    "developer tool launch"
+  ],
+  "subreddits": ["ClaudeAI", "ClaudeCode", "SideProject", "opensource"],
+  "sources": {"hackernews": true, "reddit": true, "github": true, "feeds": []},
+  "key_messages": [
+    {"id": "proof", "message": "Every draft is checked against your approved claims before you see it.", "keywords": ["lint", "red team", "red-team", "fact-check", "hype", "approved claims", "proof"]},
+    {"id": "developer-channels", "message": "Built for where developers talk: HN, Reddit, GitHub.", "keywords": ["hacker news", "show hn", "reddit", "github", "developers"]},
+    {"id": "you-publish", "message": "It drafts, you decide. It never posts for you.", "keywords": ["never posts", "doesn't post", "does not post", "approve", "you publish", "no auto-posting"]}
+  ],
+  "approved_claims": [
+    {"claim": "never posts on your behalf", "proof": "README principles; no posting code"},
+    {"claim": "checks every draft against your approved claims", "proof": "skills/redteam, agents/redteam.md, scripts/spokeslad.py lint"},
+    {"claim": "listens on Hacker News, Reddit and GitHub", "proof": "scripts/spokeslad.py listen"},
+    {"claim": "standard library only", "proof": "scripts/spokeslad.py"},
+    {"claim": "MIT licensed", "proof": "LICENSE"},
+    {"claim": "free and open source", "proof": "LICENSE"}
+  ],
+  "never_say": [
+    "the first PR plugin",
+    "the only PR plugin",
+    "replaces your PR agency",
+    "guaranteed",
+    "go viral",
+    "excited to announce"
+  ],
+  "ai_probe": {
+    "model": "claude-sonnet-5-5",
+    "questions": [
+      "What Claude Code plugins help me launch and promote a developer tool?",
+      "How can I do public relations for my open source project without hiring an agency?",
+      "What tools monitor mentions of my developer tool on Hacker News and Reddit?",
+      "How should I prepare a Show HN launch, and is there an AI tool that helps?",
+      "Is there an AI agent skill for crisis communications when my software has an outage?",
+      "How do I measure whether my developer tool launch worked?"
+    ]
+  }
+}

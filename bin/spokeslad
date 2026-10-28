@@ -1,0 +1,4 @@
+#!/bin/sh
+# Spokeslad CLI. Claude Code puts a plugin's bin/ on PATH, so skills can call `spokeslad`.
+DIR="$(cd "$(dirname "$0")" && pwd)"
+exec python3 "$DIR/../scripts/spokeslad.py" "$@"
